@@ -1,0 +1,15 @@
+* {
+  margin: 0;
+  padding: 0.5rem;
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+html {
+  padding: 0;
+  margin: 0;
+}
+
+.ant-modal {
+  max-width: calc(100% - 16px);
+}
