@@ -2,6 +2,14 @@
 
 Responsive Web App made to fit your needs **98% Error-Free Tested**. **Mobile App coming soon**
 
+Quick Notes: 
+    **Windows Users**
+    - Add the following lines to **vite.config.js** at the start of the file if not added already. Since this was developed on Linux, might not be compatible with runtime compilation.
+
+    ```
+        import fs from "fs/promises";
+    ```
+
 ## BEGIN HERE:
 ### SCREENSHOTS
 
@@ -24,9 +32,11 @@ Responsive Web App made to fit your needs **98% Error-Free Tested**. **Mobile Ap
 ### INSTRUCTIONS
 
     1. Go to this repo and clone the repo for the backend.
+
         ```
             https://github.com/ethern-myth/certified-netcore
         ```
+
     2. Run the backend before starting the frontend
 
 ### INFORMATION
