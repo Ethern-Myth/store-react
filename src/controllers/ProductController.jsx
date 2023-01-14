@@ -6,7 +6,8 @@ export async function GetProducts() {
 	return data;
 }
 
-export async function GetProduct(id) {
+export async function GetProduct({ queryKey }) {
+	const { id } = queryKey[1];
 	const res = await axios.get(`/api/Product/${id}`);
 	const data = res.data;
 	return data;

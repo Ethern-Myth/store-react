@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "@styles/index.scss";
 import { ConfigProvider, theme } from "antd";
-import "antd/dist/reset.css";
 import { BrowserRouter } from "react-router-dom";
 import { CartProvider } from "react-use-cart";
 
@@ -25,8 +24,8 @@ Interceptor();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<Authorize>
-		<ThemeProvider theme={appTheme}>
-			<ConfigProvider theme={{ algorithm: theme.compactAlgorithm }}>
+		<ConfigProvider theme={{ algorithm: theme.compactAlgorithm }}>
+			<ThemeProvider theme={appTheme}>
 				<CartProvider>
 					<BrowserRouter>
 						<QueryClientProvider client={queryClient}>
@@ -35,7 +34,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 						</QueryClientProvider>
 					</BrowserRouter>
 				</CartProvider>
-			</ConfigProvider>
-		</ThemeProvider>
-	</Authorize>
+			</ThemeProvider>
+		</ConfigProvider>
+	</Authorize >
 );

@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import useSWR from "swr";
+import { useQuery } from "react-query";
 import {
 	Empty,
 	QRCode,
@@ -21,7 +21,7 @@ const { Content } = Layout;
 
 function Product() {
 	const { id } = useParams();
-	const { data: product, isLoading } = useSWR(id, GetProduct);
+	const { data: product, isLoading } = useQuery(["product", { id }], GetProduct);
 
 	const { addItem } = useCart();
 	const [quantity, setQuantity] = React.useState(1);
@@ -72,15 +72,7 @@ function Product() {
 								alt={product.imageName}
 							/>
 							<div>
-								<QRCode
-									value={[
-										product.productID,
-										product.name,
-										product.brand,
-										product.inStock,
-										product.price,
-									]}
-								/>
+								<QRCode value={product.productID} />
 							</div>
 						</div>
 					</Badge.Ribbon>

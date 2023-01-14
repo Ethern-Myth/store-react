@@ -2,7 +2,9 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import { useCart } from "react-use-cart";
 
-function ClientDashLayout() {
+const PersistentDrawerLeft = React.lazy(() => import("@components/Drawer/Drawer"));
+
+function ClientDashLayout({ children }) {
 	const {
 		items
 	} = useCart();
@@ -18,7 +20,7 @@ function ClientDashLayout() {
 
 	console.log(orderItems);
 
-	return <div>ClientDashboardLayout</div>;
+	return <PersistentDrawerLeft>{children}</PersistentDrawerLeft>;
 }
 
-export default ClientDashLayout;
+export default React.memo(ClientDashLayout);

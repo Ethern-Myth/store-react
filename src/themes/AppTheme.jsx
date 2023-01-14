@@ -7,7 +7,7 @@ import "@fontsource/roboto/700.css";
 const AppTheme = createTheme({
 	typography: {
 		allVariants: {
-			fontFamily: "'Poppins'",
+			fontFamily: "'Roboto'",
 			fontWeightLight: 200,
 			fontWeightRegular: 400,
 			fontWeightMedium: "bold",
@@ -64,6 +64,14 @@ const AppTheme = createTheme({
 				},
 			],
 		},
+		MuiSvgIcon: {
+			styleOverrides: {
+				root: {
+					padding: 0,
+					fontSize: "1.5rem",
+				},
+			},
+		},
 		MuiAccordion: {
 			styleOverrides: {
 				root: {
@@ -102,6 +110,36 @@ const AppTheme = createTheme({
 					},
 				},
 			],
+		},
+		MuiToolbar: {
+			styleOverrides: {
+				root: {
+					justifyContent: "space-between"
+				},
+			},
+		},
+		MuiListItemButton: {
+			styleOverrides: {
+				root: {
+					padding: 0
+				},
+			},
+		},
+		MuiAppBar: {
+			styleOverrides: {
+				root: {
+					background: "#fff",
+					color: "#000",
+					height: "75px"
+				},
+			},
+		},
+		MuiListItemIcon: {
+			styleOverrides: {
+				root: {
+					marginRight: "0px !important"
+				},
+			},
 		},
 
 		// Styles for the Side  nav bar
