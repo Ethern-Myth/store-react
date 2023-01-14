@@ -8,13 +8,13 @@ export const DefaultMenu = [
     {
         label: "Favorites",
         route: "/dashboard/carpool/",
-        iconName: "TimeToLeave",
+        iconName: "Favorite",
         children: [],
     },
     {
         label: "Orders",
         route: "/dashboard/carpool/",
-        iconName: "TimeToLeave",
+        iconName: "Order",
         children: [],
     },
     {

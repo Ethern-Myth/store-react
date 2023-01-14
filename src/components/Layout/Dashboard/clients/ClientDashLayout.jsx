@@ -6,14 +6,16 @@ import { DefaultMenu } from "@components/Menu/DefaultMenu";
 //icon imports
 import {
 	Dashboard,
-	TimeToLeave,
-	Person
+	PlaylistAdd,
+	Person,
+	Scale
 }
 	from "@mui/icons-material";
 
 const icons = {
 	Dashboard: <Dashboard sx={{ color: "#444545" }} />,
-	TimeToLeave: <TimeToLeave sx={{ color: "#444545" }} />,
+	Favorite: <PlaylistAdd sx={{ color: "#444545" }} />,
+	Order: <Scale sx={{ color: "#444545" }} />,
 	Person: <Person sx={{ color: "#444545" }} />,
 };
 

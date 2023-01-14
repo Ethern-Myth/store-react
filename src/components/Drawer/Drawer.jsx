@@ -78,6 +78,7 @@ function PersistentDrawerLeft({ title, icons, menu, children }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const auth = useAuth();
     const navigate = useNavigate();
+    const [role, setRole] = React.useState("client");
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -94,6 +95,20 @@ function PersistentDrawerLeft({ title, icons, menu, children }) {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const switchRoutes = () => {
+        const Url = document.URL;
+        const route = Url.toLowerCase().indexOf(auth.getRole().toLowerCase()) == -1;
+        const switchRoute = route ? "admin" : "client";
+        navigate(`dashboard/${switchRoute}`);
+    };
+
+    React.useEffect(() => {
+        const Url = document.URL;
+        const route = Url.toLowerCase().indexOf(auth.getRole().toLowerCase()) == -1;
+        const switchRole = route ? "admin" : "client";
+        setRole(switchRole);
+    }, []);
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -139,9 +154,7 @@ function PersistentDrawerLeft({ title, icons, menu, children }) {
                             onClose={handleClose}
                         >
                             {auth.getRole() == "Admin" ? (
-                                <MenuItem onClick={() => {
-                                    navigate("/dashboard/admin")
-                                }}>Switch to admin</MenuItem>
+                                <MenuItem onClick={switchRoutes}>Switch to {role}</MenuItem>
                             ) : null}
                             <MenuItem onClick={handleClose}>My account</MenuItem>
                             <MenuItem onClick={() => {

@@ -47,7 +47,8 @@
 		"react-use-cart": "^1.13.0",
 		"sass": "^1.57.1",
 		"use-lodash-debounce": "^1.3.0",
-		"yup": "^0.32.11"
+		"yup": "^0.32.11",
+		"zustand": "^4.3.2"
 	},
 	"devDependencies": {
 		"@types/react": "^18.0.24",
