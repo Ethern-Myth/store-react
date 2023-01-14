@@ -1,6 +1,21 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { useCart } from "react-use-cart";
+import { DefaultMenu } from "@components/Menu/DefaultMenu";
+
+//icon imports
+import {
+	Dashboard,
+	TimeToLeave,
+	Person
+}
+	from "@mui/icons-material";
+
+const icons = {
+	Dashboard: <Dashboard sx={{ color: "#444545" }} />,
+	TimeToLeave: <TimeToLeave sx={{ color: "#444545" }} />,
+	Person: <Person sx={{ color: "#444545" }} />,
+};
 
 const PersistentDrawerLeft = React.lazy(() => import("@components/Drawer/Drawer"));
 
@@ -17,10 +32,9 @@ function ClientDashLayout({ children }) {
 			setOrderItems(items);
 		}
 	}, [items]);
-
 	console.log(orderItems);
 
-	return <PersistentDrawerLeft>{children}</PersistentDrawerLeft>;
+	return <PersistentDrawerLeft title="Client" icons={icons} menu={DefaultMenu}>{children}</PersistentDrawerLeft>;
 }
 
 export default React.memo(ClientDashLayout);

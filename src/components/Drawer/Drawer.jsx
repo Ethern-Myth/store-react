@@ -72,7 +72,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     justifyContent: 'flex-end',
 }));
 
-function PersistentDrawerLeft({ children }) {
+function PersistentDrawerLeft({ title, icons, menu, children }) {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -110,7 +110,7 @@ function PersistentDrawerLeft({ children }) {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        Dashboard
+                        {title}
                     </Typography>
                     <div>
                         <IconButton
@@ -123,7 +123,6 @@ function PersistentDrawerLeft({ children }) {
                         >
                             <AccountCircle />
                         </IconButton>
-
                         <Menu
                             id="menu-appbar"
                             anchorEl={anchorEl}
@@ -150,7 +149,6 @@ function PersistentDrawerLeft({ children }) {
                             }}>Logout</MenuItem>
                         </Menu>
                     </div>
-
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -172,7 +170,7 @@ function PersistentDrawerLeft({ children }) {
                     </IconButton>
                 </DrawerHeader>
                 <Divider />
-                <MenuList drawerOpen={open} setDrawerState={setOpen} />
+                <MenuList icons={icons} menu={menu} drawerOpen={open} setDrawerState={setOpen} />
             </Drawer>
             <Main open={open}>
                 <DrawerHeader />

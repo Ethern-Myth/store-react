@@ -10,25 +10,15 @@ import {
 }
     from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { DefaultMenu } from "@components/Menu/DefaultMenu";
 
 //icon imports
 import {
     ExpandLess,
-    ExpandMore,
-    Dashboard,
-    TimeToLeave,
-    Person
+    ExpandMore
 }
     from "@mui/icons-material";
 
-const icons = {
-    Dashboard: <Dashboard sx={{ color: "#444545" }} />,
-    TimeToLeave: <TimeToLeave sx={{ color: "#444545" }} />,
-    Person: <Person sx={{ color: "#444545" }} />,
-};
-
-function MenuList({ drawerOpen, setDrawerState }) {
+function MenuList({ icons, menu, drawerOpen, setDrawerState }) {
     const navigate = useNavigate();
     const [open, setOpen] = React.useState(true);
     const [selected, setSelected] = React.useState(true);
@@ -51,7 +41,7 @@ function MenuList({ drawerOpen, setDrawerState }) {
         <>
             {/**Standard List */}
             <List>
-                {DefaultMenu.map((parent, parentIndex) => {
+                {menu.map((parent, parentIndex) => {
                     return (
                         <ListItem
                             key={parent.label}

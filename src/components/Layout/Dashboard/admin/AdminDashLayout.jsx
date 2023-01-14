@@ -1,17 +1,8 @@
 import React from "react";
-const Sidebar = React.lazy(() => import("@components/Layout/Dashboard/admin/Sidebar/Sidebar"));
-const Topbar = React.lazy(() => import("@components/Layout/Dashboard/admin/Topbar/Topbar"));
+const PersistentDrawerLeft = React.lazy(() => import("@components/Drawer/Drawer"));
 
 function AdminDashLayout({ children }) {
-	return (
-		<div style={{ display: "flex", height: "100%" }}>
-			<Sidebar />
-			<main>
-				<Topbar />
-				{children}
-			</main>
-		</div>
-	);
+	return <PersistentDrawerLeft>{children}</PersistentDrawerLeft>;
 }
 
 export default React.memo(AdminDashLayout);
