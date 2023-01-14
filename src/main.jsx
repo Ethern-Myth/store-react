@@ -15,6 +15,8 @@ const queryClient = new QueryClient();
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { ProSidebarProvider } from 'react-pro-sidebar';
+
 import { Authorize } from "@auth/Authorize";
 
 const appTheme = createTheme(AppTheme);
@@ -29,8 +31,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 				<CartProvider>
 					<BrowserRouter>
 						<QueryClientProvider client={queryClient}>
-							<ToastContainer />
-							<App />
+							<ProSidebarProvider>
+								<ToastContainer />
+								<App />
+							</ProSidebarProvider>
 						</QueryClientProvider>
 					</BrowserRouter>
 				</CartProvider>

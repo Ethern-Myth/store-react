@@ -1,14 +1,11 @@
 import React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
-import { useAuth } from '@auth/Authorize';
-
 import {
     ChevronLeft,
     ChevronRight,
     AccountCircle
 }
     from "@mui/icons-material";
-
 import MuiAppBar from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
 import {
@@ -23,9 +20,10 @@ import {
     Menu,
 }
     from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-import LogoutButton from '@components/Custom/LogoutButton';
 import MenuList from '@components/MenuList/MenuList';
+import { useAuth } from '@auth/Authorize';
 
 const drawerWidth = 250;
 
@@ -79,6 +77,7 @@ function PersistentDrawerLeft({ children }) {
     const [open, setOpen] = React.useState(false);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const auth = useAuth();
+    const navigate = useNavigate();
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -124,6 +123,7 @@ function PersistentDrawerLeft({ children }) {
                         >
                             <AccountCircle />
                         </IconButton>
+
                         <Menu
                             id="menu-appbar"
                             anchorEl={anchorEl}
@@ -139,6 +139,11 @@ function PersistentDrawerLeft({ children }) {
                             open={Boolean(anchorEl)}
                             onClose={handleClose}
                         >
+                            {auth.getRole() == "Admin" ? (
+                                <MenuItem onClick={() => {
+                                    navigate("/dashboard/admin")
+                                }}>Switch to admin</MenuItem>
+                            ) : null}
                             <MenuItem onClick={handleClose}>My account</MenuItem>
                             <MenuItem onClick={() => {
                                 auth.logout();

@@ -1,7 +1,17 @@
 import React from "react";
+const Sidebar = React.lazy(() => import("@components/Layout/Dashboard/admin/Sidebar/Sidebar"));
+const Topbar = React.lazy(() => import("@components/Layout/Dashboard/admin/Topbar/Topbar"));
 
-function AdminDashLayout() {
-	return <div>AdminDashboardLayout</div>;
+function AdminDashLayout({ children }) {
+	return (
+		<div style={{ display: "flex", height: "100%" }}>
+			<Sidebar />
+			<main>
+				<Topbar />
+				{children}
+			</main>
+		</div>
+	);
 }
 
-export default AdminDashLayout;
+export default React.memo(AdminDashLayout);
