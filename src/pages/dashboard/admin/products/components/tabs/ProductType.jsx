@@ -8,11 +8,11 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton } from "@mui/material";
 
-import { GetProductTypes } from "@controllers/ProductTypeController";
-
 const PageContainer = React.lazy(() => import("@components/Templates/PageContainer"));
 const CustomToolBar = React.lazy(() => import("@components/Toolbar/CustomToolBar"));
 const FormModal = React.lazy(() => import("@components/FormModal/FormModal"));
+
+import { GetProductTypes } from "@controllers/ProductTypeController";
 
 function ProductType() {
     const [open, setOpen] = React.useState(false);
@@ -108,14 +108,13 @@ function ProductType() {
             <FormModal
                 setOpen={setOpen}
                 open={open}
-                label="Add New Product Type"
+                label="Create Product Type"
             >
                 Hello
             </FormModal>
             <Grid item xs={12}>
                 <DataGrid
                     autoHeight
-                    autoWidth
                     rows={productTypes}
                     loading={isLoading}
                     columns={columns}
