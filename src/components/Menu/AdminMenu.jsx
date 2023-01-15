@@ -24,12 +24,6 @@ export const AdminMenu = [
         children: [],
     },
     {
-        label: "Roles",
-        route: "/dashboard/admin/roles/",
-        iconName: "Person",
-        children: [],
-    },
-    {
         label: "Orders",
         route: "/dashboard/admin/orders/",
         iconName: "Order",

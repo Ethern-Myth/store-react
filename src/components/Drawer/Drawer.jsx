@@ -30,7 +30,7 @@ const drawerWidth = 250;
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
         flexGrow: 1,
-        padding: theme.spacing(3),
+        padding: theme.spacing(2),
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -124,7 +124,7 @@ function PersistentDrawerLeft({ title, icons, menu, children }) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div">
+                    <Typography color="#fff" variant="h6" noWrap component="div">
                         {title}
                     </Typography>
                     <div>

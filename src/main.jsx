@@ -26,8 +26,8 @@ Interceptor();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<Authorize>
-		<ConfigProvider theme={{ algorithm: theme.compactAlgorithm }}>
-			<ThemeProvider theme={appTheme}>
+		<ThemeProvider theme={appTheme}>
+			<ConfigProvider theme={{ algorithm: theme.compactAlgorithm }}>
 				<CartProvider>
 					<BrowserRouter>
 						<QueryClientProvider client={queryClient}>
@@ -38,7 +38,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 						</QueryClientProvider>
 					</BrowserRouter>
 				</CartProvider>
-			</ThemeProvider>
-		</ConfigProvider>
+			</ConfigProvider>
+		</ThemeProvider>
 	</Authorize >
 );

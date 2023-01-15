@@ -29,3 +29,36 @@ html {
 ::-webkit-scrollbar-thumb {
   background: #888;
 }
+
+
+
+.MuiGrid-root {
+  position: relative;
+  left: 0;
+  padding: 0 !important;
+
+  & .MuiPaper-root {
+    height: none;
+  }
+
+  & .MuiGrid-container {
+    position: absolute;
+    padding: 0;
+  }
+
+  & .MuiSvgIcon-root {
+    font-size: 2.5rem !important;
+  }
+}
+
+.MuiButton-root {
+  & .MuiSvgIcon-root {
+    font-size: 2rem !important;
+  }
+}
+
+@media screen and (max-width:1000px) {
+  .custom-tool-bar {
+    flex-direction: column !important;
+  }
+}

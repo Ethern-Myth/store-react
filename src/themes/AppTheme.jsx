@@ -20,7 +20,7 @@ const AppTheme = createTheme({
 		},
 		primary: {
 			light: "#757ce8",
-			main: "#42a5f5",
+			main: "#e1b382",
 			dark: "#1976d2",
 			contrastText: "#fff",
 		},
@@ -69,6 +69,7 @@ const AppTheme = createTheme({
 				root: {
 					padding: 0,
 					fontSize: "1.5rem",
+					color: "#fff !important"
 				},
 			},
 		},
@@ -84,9 +85,14 @@ const AppTheme = createTheme({
 		MuiTabs: {
 			styleOverrides: {
 				indicator: {
-					backgroundColor: "#42a5f5",
-					height: 5,
+					backgroundColor: "#e1b382",
+					height: 2.5,
+					padding: 0,
+					borderRadius: "10px"
 				},
+				flexContainer: {
+					padding: 0
+				}
 			},
 		},
 		// The tab itself
@@ -128,9 +134,9 @@ const AppTheme = createTheme({
 		MuiAppBar: {
 			styleOverrides: {
 				root: {
-					background: "#fff",
-					color: "#000",
-					height: "75px"
+					background: "#e1b382",
+					color: "#fff",
+					height: "75px",
 				},
 			},
 		},
@@ -141,11 +147,13 @@ const AppTheme = createTheme({
 				},
 			},
 		},
-
 		// Styles for the Side  nav bar
 		MuiDrawer: {
 			styleOverrides: {
-				paper: {},
+				paper: {
+					background: "#e1b382",
+					color: "#fff",
+				},
 			},
 		},
 		MuiDataGrid: {
@@ -154,7 +162,7 @@ const AppTheme = createTheme({
 					borderRadius: "10px",
 					border: "none",
 					boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
-					padding: "10px 10px 0px 10px",
+					padding: "5px 5px 0px 5px",
 					backgroundColor: "#FFFFFF",
 					"& .MuiDataGrid-columnsContainer": {
 						padding: "0px 5px 0px 5px",

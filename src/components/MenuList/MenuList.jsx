@@ -76,7 +76,7 @@ function MenuList({ icons, menu, drawerOpen, setDrawerState }) {
                                 </ListItemIcon>
                                 <ListItemText sx={{ opacity: drawerOpen ? 1 : 0 }}>
                                     {" "}
-                                    <Typography>{parent.label}</Typography>
+                                    <Typography sx={{ color: "white" }}>{parent.label}</Typography>
                                 </ListItemText>
                                 {parent.children.length > 0 ? (
                                     drawerOpen ? (
