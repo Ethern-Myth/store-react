@@ -13,18 +13,11 @@ function ProductTypeForm({ setOpen, selectedForUpdate = null }) {
 
     const { mutate: createProductType } = useMutation(ProductTypePostRequest, {
         onSuccess: (d) => {
-<<<<<<< HEAD
             queryClient.invalidateQueries("productTypes");
-=======
->>>>>>> 7b828f335f90d231b233ccf5a76ae8fc2cddb9d9
             toast("Product Type Created", {
                 type: "success",
             });
             setOpen(false);
-<<<<<<< HEAD
-=======
-            queryClient.invalidateQueries({ queryKey: ["productTypes"] });
->>>>>>> 7b828f335f90d231b233ccf5a76ae8fc2cddb9d9
         },
         onError: (d) => {
             toast("Product Type Create Failed", {
@@ -35,18 +28,11 @@ function ProductTypeForm({ setOpen, selectedForUpdate = null }) {
 
     const { mutate: editProductType } = useMutation(ProductTypePutRequest, {
         onSuccess: (d) => {
-<<<<<<< HEAD
             queryClient.invalidateQueries("productTypes");
-=======
->>>>>>> 7b828f335f90d231b233ccf5a76ae8fc2cddb9d9
             toast("Product Type Updated", {
                 type: "success",
             });
             setOpen(false);
-<<<<<<< HEAD
-=======
-            queryClient.invalidateQueries({ queryKey: ["productTypes"] });
->>>>>>> 7b828f335f90d231b233ccf5a76ae8fc2cddb9d9
         },
         onError: (d) => {
             toast("Product Type Updating Failed", {
