@@ -1,6 +1,7 @@
 import { Suspense, lazy, memo } from "react";
 import PublicRouting from "./routes/PublicRouting";
 import PrivateRouting from "./routes/PrivateRouting";
+import AuthenticateRouting from "./routes/AuthenticateRouting";
 import { Routes, Route } from "react-router-dom";
 import { Spin } from "antd";
 
@@ -31,8 +32,10 @@ function App() {
 			}
 		>
 			<Routes>
-				<Route path="/login" element={<Login />} />
-				<Route path="/register" element={<Register />} />
+				<Route element={<AuthenticateRouting />}>
+					<Route path="/login" element={<Login />} />
+					<Route path="/register" element={<Register />} />
+				</Route>
 				<Route element={<PublicRouting />}>
 					<Route path="/" element={<Index />} />
 					<Route path="/product" element={<Product />} />

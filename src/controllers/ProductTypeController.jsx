@@ -12,3 +12,34 @@ export async function GetProductType({ queryKey }) {
     const data = res.data;
     return data;
 }
+
+export async function ProductTypePostRequest(myForm) {
+    try {
+        const res = await axios.post("/api/ProductType", myForm, {
+            headers: { "Content-Type": "application/json" },
+        });
+        const data = res.data;
+        return data;
+    } catch (error) {
+        console.error(error.response.data);
+    }
+}
+
+export async function ProductTypePutRequest(myForm) {
+    try {
+        const id = myForm.id;
+        const res = await axios.put(`/api/ProductType/${id}`, myForm, {
+            headers: { "Content-Type": "application/json" },
+        });
+        const data = res.data;
+        return data;
+    } catch (error) {
+        console.error(error.response.data);
+    }
+}
+
+export async function ProductTypeDeleteRequest(id) {
+    const res = await axios.delete(`/api/ProductType/${id}`);
+    const data = res.data;
+    return data;
+}

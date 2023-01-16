@@ -146,6 +146,7 @@ function RegisterTemplate() {
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
                                 <TextField
+                                    margin="dense"
                                     autoComplete="given-name"
                                     name="Name"
                                     required
@@ -162,6 +163,7 @@ function RegisterTemplate() {
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
+                                    margin="dense"
                                     required
                                     fullWidth
                                     id="Surname"
@@ -177,6 +179,7 @@ function RegisterTemplate() {
                             </Grid>
                             <Grid item xs={12}>
                                 <MuiTelInput
+                                    margin="dense"
                                     aria-label="Phone"
                                     fullWidth
                                     size="small"
@@ -187,6 +190,7 @@ function RegisterTemplate() {
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
+                                    margin="dense"
                                     required
                                     fullWidth
                                     id="Email"
@@ -203,6 +207,7 @@ function RegisterTemplate() {
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
+                                    margin="dense"
                                     required
                                     fullWidth
                                     name="Password"
@@ -222,6 +227,7 @@ function RegisterTemplate() {
                             <FormControl fullWidth>
                                 <InputLabel id="role-label">Role</InputLabel>
                                 <Select
+                                    margin="dense"
                                     size="small"
                                     fullWidth
                                     id="RoleID"
@@ -248,6 +254,7 @@ function RegisterTemplate() {
                         {
                             values.RoleID == 1 ? (<Grid item xs={12}>
                                 <TextField
+                                    margin="dense"
                                     required
                                     fullWidth
                                     id="SecurityToken"

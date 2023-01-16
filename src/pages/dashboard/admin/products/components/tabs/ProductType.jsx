@@ -1,23 +1,47 @@
 import React from 'react';
 import { DataGrid } from "@mui/x-data-grid";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient, useMutation } from "react-query";
 import Grid from "@mui/material/Grid";
 import Tooltip from "@mui/material/Tooltip";
 import { Empty } from "antd";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton } from "@mui/material";
+import { toast } from "react-toastify";
 
 const PageContainer = React.lazy(() => import("@components/Templates/PageContainer"));
 const CustomToolBar = React.lazy(() => import("@components/Toolbar/CustomToolBar"));
 const FormModal = React.lazy(() => import("@components/FormModal/FormModal"));
+const ProductTypeForm = React.lazy(() => import("@pages/dashboard/admin/products/components/forms/ProductTypeForm"));
 
-import { GetProductTypes } from "@controllers/ProductTypeController";
+import { GetProductTypes, ProductTypeDeleteRequest } from "@controllers/ProductTypeController";
+
 
 function ProductType() {
+    const queryClient = useQueryClient();
     const [open, setOpen] = React.useState(false);
+    const [selectedForUpdate, setSelectedForUpdate] = React.useState(null);
     const { data: productTypes, isLoading } = useQuery(["productType"], GetProductTypes);
 
+    function handleSelect(id) {
+        setSelectedForUpdate(productTypes.find((pt) => pt.pdTypeID === id));
+        setOpen(true);
+    }
+
+    const { mutate: deleteProductType } = useMutation(ProductTypeDeleteRequest, {
+        onSuccess: (d) => {
+            toast("Product Type Deleted", {
+                type: "success",
+            });
+            setOpen(false);
+            queryClient.invalidateQueries("productTypes");
+        },
+        onError: (d) => {
+            toast("Product Type Deleting Failed", {
+                type: "error",
+            });
+        },
+    });
 
     if (isLoading) return <Empty />;
 
@@ -54,20 +78,7 @@ function ProductType() {
                                 color="primary"
                                 fontSize="small"
                                 onClick={() => {
-                                    console.log(row.pdTypeID);
-                                    // setConfirmState({
-                                    //     isOpen: true,
-                                    //     name:
-                                    //         row.carPools[0].origin +
-                                    //         " to " +
-                                    //         row.carPools[0].destination,
-                                    //     type: "leave",
-                                    //     onConfirm: () => {
-                                    //         leaveCarPool({
-                                    //             JoinId: row.joinId,
-                                    //         });
-                                    //     },
-                                    // });
+                                    handleSelect(row.pdTypeID);
                                 }}
                             >
                                 <EditIcon color="primary" />
@@ -78,20 +89,7 @@ function ProductType() {
                                 color="primary"
                                 fontSize="small"
                                 onClick={() => {
-                                    console.log(row.pdTypeID);
-                                    // setConfirmState({
-                                    //     isOpen: true,
-                                    //     name:
-                                    //         row.carPools[0].origin +
-                                    //         " to " +
-                                    //         row.carPools[0].destination,
-                                    //     type: "leave",
-                                    //     onConfirm: () => {
-                                    //         leaveCarPool({
-                                    //             JoinId: row.joinId,
-                                    //         });
-                                    //     },
-                                    // });
+                                    deleteProductType(row.pdTypeID);
                                 }}
                             >
                                 <DeleteIcon color="error" />
@@ -108,9 +106,9 @@ function ProductType() {
             <FormModal
                 setOpen={setOpen}
                 open={open}
-                label="Create Product Type"
+                label={`${selectedForUpdate ? "Edit" : "Create"} Product Type`}
             >
-                Hello
+                <ProductTypeForm selectedForUpdate={selectedForUpdate} setOpen={setOpen} />
             </FormModal>
             <Grid item xs={12}>
                 <DataGrid

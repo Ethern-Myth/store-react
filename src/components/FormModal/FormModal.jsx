@@ -6,6 +6,7 @@ import Grid from "@mui/material/Grid";
 
 const style = {
     position: "absolute",
+    minHeight: "90%",
     maxHeight: "90%",
     top: "50%",
     left: "50%",
@@ -38,7 +39,9 @@ function FormModal({ children, open, setOpen, label }) {
                                 {label}
                             </Typography>
                         </Grid>
-                        {children}
+                        <Grid item xs={12}>
+                            {children}
+                        </Grid>
                     </Grid>
                 </Box>
             </Modal>
