@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import Grid from "@mui/material/Grid";
 import Tooltip from "@mui/material/Tooltip";
 import { Empty } from "antd";
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton } from "@mui/material";
@@ -51,20 +52,6 @@ function Product() {
             },
         },
         {
-            field: "desc",
-            headerName: "Description",
-            flex: 1,
-            editable: false,
-            minWidth: 200,
-            renderCell: ({ row }) => {
-                return (
-                    <div>
-                        {row.desc}
-                    </div>
-                );
-            },
-        },
-        {
             field: "conversion",
             headerName: "Size",
             flex: 1,
@@ -73,21 +60,7 @@ function Product() {
             renderCell: ({ row }) => {
                 return (
                     <div>
-                        {row.conversionSize}
-                    </div>
-                );
-            },
-        },
-        {
-            field: "unit",
-            headerName: "Unit",
-            flex: 1,
-            editable: false,
-            minWidth: 150,
-            renderCell: ({ row }) => {
-                return (
-                    <div>
-                        {row.conversion.unit}
+                        {row.conversionSize}{row.conversion.unit}
                     </div>
                 );
             },
@@ -125,7 +98,7 @@ function Product() {
             headerName: "Image",
             flex: 1,
             editable: false,
-            minWidth: 150,
+            minWidth: 100,
             renderCell: ({ row }) => {
                 return (
                     <div>
@@ -148,6 +121,30 @@ function Product() {
                         className="d-flex justify-content-between align-items-center"
                         style={{ cursor: "pointer" }}
                     >
+                        <Tooltip placement="top" title={row.inStock ? "Out of stock" : "In stock"}>
+                            <IconButton
+                                color="primary"
+                                fontSize="small"
+                                onClick={() => {
+                                    console.log(row.productID);
+                                    // setConfirmState({
+                                    //     isOpen: true,
+                                    //     name:
+                                    //         row.carPools[0].origin +
+                                    //         " to " +
+                                    //         row.carPools[0].destination,
+                                    //     type: "leave",
+                                    //     onConfirm: () => {
+                                    //         leaveCarPool({
+                                    //             JoinId: row.joinId,
+                                    //         });
+                                    //     },
+                                    // });
+                                }}
+                            >
+                                <RestartAltIcon color="success" />
+                            </IconButton>
+                        </Tooltip>
                         <Tooltip placement="top" title="Update product">
                             <IconButton
                                 color="primary"
@@ -228,7 +225,9 @@ function Product() {
                         },
                     }}
                     getRowClassName={(params) =>
-                        params.indexRelativeToCurrentPage % 2 === 0 && "even"
+                        params.indexRelativeToCurrentPage % 2 === 0
+                            ? "even active"
+                            : "odd active"
                     }
                     getRowHeight={() => "auto"}
                     getRowId={(row) => row.productID}

@@ -4,14 +4,14 @@
 		"target": "es2022",
 		"baseUrl": "./src",
 		"paths": {
-			"@components/*": ["components/*"],
-			"@styles/*": ["styles/*"],
-			"@pages/*": ["pages/*"],
-			"@controllers/*": ["controllers/*"],
-			"@utils/*": ["utils/*"],
-			"@hooks/*": ["hooks/*"],
-			"@assets/*": ["assets/*"],
-			"@auth/*": ["auth/*"]
+			"@components/*": ["./components/*"],
+			"@styles/*": ["./styles/*"],
+			"@pages/*": ["./pages/*"],
+			"@controllers/*": ["./controllers/*"],
+			"@utils/*": ["./utils/*"],
+			"@hooks/*": ["./hooks/*"],
+			"@assets/*": ["./assets/*"],
+			"@auth/*": ["./auth/*"]
 		}
 	}
 }

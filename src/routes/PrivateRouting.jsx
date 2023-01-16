@@ -2,6 +2,10 @@ import React from 'react';
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from '@auth/Authorize';
 
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import AppTheme from "../themes/AppTheme";
+
+const theme = createTheme(AppTheme);
 const ClientDashLayout = React.lazy(() => import("@components/Layout/Dashboard/clients/ClientDashLayout"));
 const AdminDashLayout = React.lazy(() => import("@components/Layout/Dashboard/admin/AdminDashLayout"));
 
@@ -31,7 +35,9 @@ function PrivateRouting({ allowedRole }) {
     }
 
     return CheckRole() && loggedIn ?
-        RouteOnRole
+        <ThemeProvider theme={theme}>
+            {RouteOnRole}
+        </ThemeProvider>
         : (
             <Navigate to="/login" />
         );

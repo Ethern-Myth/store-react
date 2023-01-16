@@ -10,10 +10,6 @@ html {
   margin: 0;
 }
 
-.ant-modal {
-  max-width: calc(100% - 16px);
-}
-
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -29,8 +25,6 @@ html {
 ::-webkit-scrollbar-thumb {
   background: #888;
 }
-
-
 
 .MuiGrid-root {
   position: relative;
@@ -54,11 +48,5 @@ html {
 .MuiButton-root {
   & .MuiSvgIcon-root {
     font-size: 2rem !important;
-  }
-}
-
-@media screen and (max-width:1000px) {
-  .custom-tool-bar {
-    flex-direction: column !important;
   }
 }

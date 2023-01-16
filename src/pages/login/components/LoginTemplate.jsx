@@ -98,7 +98,7 @@ function LoginTemplate() {
 					</Typography>
 					<Box component="form" sx={{ mt: 1 }}>
 						<TextField
-							margin="normal"
+							margin="dense"
 							required
 							fullWidth
 							id="Email"
@@ -113,7 +113,7 @@ function LoginTemplate() {
 							onChange={handleChange}
 						/>
 						<TextField
-							margin="normal"
+							margin="dense"
 							required
 							fullWidth
 							name="Password"

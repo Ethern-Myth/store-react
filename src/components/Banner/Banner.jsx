@@ -7,7 +7,7 @@ import image3 from "@assets/images/image3.jpg";
 import image4 from "@assets/images/image4.jpg";
 
 function Banner() {
-	const images = [image1, image2, image3, image3];
+	const images = [image1, image2, image3, image4];
 	const [currentImage, setCurrentImage] = React.useState(images[0]);
 	React.useEffect(() => {
 		const intervalId = setInterval(() => {
