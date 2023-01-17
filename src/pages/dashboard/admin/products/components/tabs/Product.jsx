@@ -18,7 +18,10 @@ import { GetProducts } from "@controllers/ProductController";
 
 function Product() {
     const [open, setOpen] = React.useState(false);
-    const { data: products, isLoading } = useQuery(["product"], GetProducts);
+    const { data: products, isLoading } = useQuery(["product"], GetProducts, {
+        refetchOnWindowFocus: true,
+        refetchOnReconnect: true
+    });
 
     if (isLoading) return <Empty />;
 
