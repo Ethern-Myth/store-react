@@ -30,7 +30,7 @@ function ProductType() {
 
     const { mutate: deleteProductType } = useMutation(ProductTypeDeleteRequest, {
         onSuccess: (d) => {
-            queryClient.invalidateQueries("productTypes");
+            queryClient.invalidateQueries();
             toast("Product Type Deleted", {
                 type: "success",
             });

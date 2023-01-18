@@ -14,7 +14,9 @@ const Admin = lazy(() => import("@pages/dashboard/admin/Index"));
 const Client = lazy(() => import("@pages/dashboard/clients/Index"));
 const Products = lazy(() => import("@pages/dashboard/admin/products/Products"));
 const Customers = lazy(() => import("@pages/dashboard/admin/customers/Customers"));
-
+const Conversions = lazy(() => import("@pages/dashboard/admin/conversions/Conversions"));
+const Deliveries = lazy(() => import("@pages/dashboard/admin/deliveries/Deliveries"));
+const Orders = lazy(() => import("@pages/dashboard/admin/orders/Orders"));
 
 function App() {
   return (
@@ -47,6 +49,9 @@ function App() {
             <Route path="/dashboard/admin" element={<Admin />} />
             <Route path="/dashboard/admin/customers" element={<Customers />} />
             <Route path="/dashboard/admin/products" element={<Products />} />
+            <Route path="/dashboard/admin/conversions" element={<Conversions />} />
+            <Route path="/dashboard/admin/deliveries" element={<Deliveries />} />
+            <Route path="/dashboard/admin/orders" element={<Orders />} />
           </Route>
           <Route element={<PrivateRouting allowedRole="Customer" />}>
             <Route path="/dashboard/client" element={<Client />} />

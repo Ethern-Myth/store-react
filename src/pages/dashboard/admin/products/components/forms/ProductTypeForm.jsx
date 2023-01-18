@@ -13,7 +13,7 @@ function ProductTypeForm({ setOpen, selectedForUpdate = null }) {
 
     const { mutate: createProductType } = useMutation(ProductTypePostRequest, {
         onSuccess: (d) => {
-            queryClient.invalidateQueries("productTypes");
+            queryClient.invalidateQueries();
             toast("Product Type Created", {
                 type: "success",
             });
@@ -28,7 +28,7 @@ function ProductTypeForm({ setOpen, selectedForUpdate = null }) {
 
     const { mutate: editProductType } = useMutation(ProductTypePutRequest, {
         onSuccess: (d) => {
-            queryClient.invalidateQueries("productTypes");
+            queryClient.invalidateQueries();
             toast("Product Type Updated", {
                 type: "success",
             });
