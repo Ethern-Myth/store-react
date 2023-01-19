@@ -39,20 +39,19 @@ export async function ProductPutRequest(myForm) {
 	}
 }
 
-export async function UpdateProductStatusRequest(myform) {
+export async function UpdateProductStatusRequest(myForm) {
 	try {
-		console.log(myForm);
-		// const res = await axios.post('/api/Product', myForm, {
-		// 	headers: { "Content-Type": "multipart/form-data" },
-		// });
-		// const data= res.data;
-		// return data;
+		const { id, inStock } = myForm;
+		const res = await axios.put(`/api/Product/${id}/Status/${inStock}`);
+		const data = res.data;
+		return data;
 	} catch (error) {
 		console.error(error.response.data);
 	}
 }
 
 export async function ProductDeleteRequest(id) {
+	console.log(id);
 	const res = await axios.delete(`/api/Product/${id}`);
 	const data = res.data;
 	return data;

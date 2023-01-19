@@ -67,7 +67,7 @@ function ProductTypeForm({ setOpen, selectedForUpdate = null }) {
     });
 
     React.useEffect(() => {
-        setFieldTouched("name");
+        setFieldTouched("category");
     }, [selectedForUpdate]);
 
     return (

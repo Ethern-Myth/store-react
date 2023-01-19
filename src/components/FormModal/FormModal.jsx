@@ -6,8 +6,7 @@ import Grid from "@mui/material/Grid";
 
 const style = {
     position: "absolute",
-    minHeight: "90%",
-    maxHeight: "90%",
+    height: "90%",
     top: "50%",
     left: "50%",
     transform: "translate(calc(-50% + 0.5px), calc(-50% + 0.5px))",

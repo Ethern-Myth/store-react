@@ -9,10 +9,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton } from "@mui/material";
 import { toast } from "react-toastify";
 
+import ProductTypeForm from "@pages/dashboard/admin/products/components/forms/ProductTypeForm";
+
 const PageContainer = React.lazy(() => import("@components/Templates/PageContainer"));
 const CustomToolBar = React.lazy(() => import("@components/Toolbar/CustomToolBar"));
 const FormModal = React.lazy(() => import("@components/FormModal/FormModal"));
-const ProductTypeForm = React.lazy(() => import("@pages/dashboard/admin/products/components/forms/ProductTypeForm"));
 
 import { GetProductTypes, ProductTypeDeleteRequest } from "@controllers/ProductTypeController";
 

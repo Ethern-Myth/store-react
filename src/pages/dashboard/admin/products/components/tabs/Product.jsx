@@ -1,6 +1,6 @@
 import React from 'react';
 import { DataGrid } from "@mui/x-data-grid";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient, useMutation } from "react-query";
 import Grid from "@mui/material/Grid";
 import Tooltip from "@mui/material/Tooltip";
 import { Empty } from "antd";
@@ -9,21 +9,56 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton } from "@mui/material";
 import Chip from "@mui/material/Chip";
+import { toast } from "react-toastify";
+import ProductForm from "@pages/dashboard/admin/products/components/forms/ProductForm";
 
 const PageContainer = React.lazy(() => import("@components/Templates/PageContainer"));
 const CustomToolBar = React.lazy(() => import("@components/Toolbar/CustomToolBar"));
 const FormModal = React.lazy(() => import("@components/FormModal/FormModal"));
 
-import { GetProducts } from "@controllers/ProductController";
+import { GetProducts, ProductDeleteRequest, UpdateProductStatusRequest } from "@controllers/ProductController";
 
 function Product() {
+    const queryClient = useQueryClient();
     const [open, setOpen] = React.useState(false);
-    const { data: products, isLoading } = useQuery(["product"], GetProducts, {
-        refetchOnWindowFocus: true,
-        refetchOnReconnect: true
+    const [selectedForUpdate, setSelectedForUpdate] = React.useState(null);
+    const { data: products, isLoading } = useQuery(["product"], GetProducts);
+    console.log(products);
+
+    function handleSelect(id) {
+        setSelectedForUpdate(products.find((pt) => pt.productID === id));
+        setOpen(true);
+    }
+
+    const { mutate: deleteProduct } = useMutation(ProductDeleteRequest, {
+        onSuccess: (d) => {
+            queryClient.invalidateQueries();
+            toast("Product Deleted", {
+                type: "success",
+            });
+            setOpen(false);
+        },
+        onError: (d) => {
+            toast("Product Deleting Failed", {
+                type: "error",
+            });
+        },
     });
 
-    if (isLoading) return <Empty />;
+    const { mutate: updateByStatusProduct } = useMutation(UpdateProductStatusRequest, {
+        onSuccess: (d) => {
+            queryClient.invalidateQueries();
+            toast("Product Status Updated", {
+                type: "success",
+            });
+            setOpen(false);
+        },
+        onError: (d) => {
+            toast("Product Status Update Failed", {
+                type: "error",
+            });
+        },
+    });
 
     const columns = [
         {
@@ -101,7 +136,7 @@ function Product() {
             headerName: "Image",
             flex: 1,
             editable: false,
-            minWidth: 100,
+            minWidth: 150,
             renderCell: ({ row }) => {
                 return (
                     <div>
@@ -129,20 +164,7 @@ function Product() {
                                 color="primary"
                                 fontSize="small"
                                 onClick={() => {
-                                    console.log(row.productID);
-                                    // setConfirmState({
-                                    //     isOpen: true,
-                                    //     name:
-                                    //         row.carPools[0].origin +
-                                    //         " to " +
-                                    //         row.carPools[0].destination,
-                                    //     type: "leave",
-                                    //     onConfirm: () => {
-                                    //         leaveCarPool({
-                                    //             JoinId: row.joinId,
-                                    //         });
-                                    //     },
-                                    // });
+                                    updateByStatusProduct({ id: row.productID, inStock: !row.inStock });
                                 }}
                             >
                                 <RestartAltIcon color="success" />
@@ -153,20 +175,7 @@ function Product() {
                                 color="primary"
                                 fontSize="small"
                                 onClick={() => {
-                                    console.log(row.productID);
-                                    // setConfirmState({
-                                    //     isOpen: true,
-                                    //     name:
-                                    //         row.carPools[0].origin +
-                                    //         " to " +
-                                    //         row.carPools[0].destination,
-                                    //     type: "leave",
-                                    //     onConfirm: () => {
-                                    //         leaveCarPool({
-                                    //             JoinId: row.joinId,
-                                    //         });
-                                    //     },
-                                    // });
+                                    handleSelect(row.productID);
                                 }}
                             >
                                 <EditIcon color="primary" />
@@ -200,16 +209,18 @@ function Product() {
                 );
             },
         },
-    ]
+    ];
+
+    if (isLoading) return <Empty />;
 
     return (
         <PageContainer>
             <FormModal
                 setOpen={setOpen}
                 open={open}
-                label="Create New Product"
+                label={`${selectedForUpdate ? "Edit" : "Create"} Product`}
             >
-                Hello
+                <ProductForm selectedForUpdate={selectedForUpdate} setOpen={setOpen} />
             </FormModal>
             <Grid item xs={12}>
                 <DataGrid
