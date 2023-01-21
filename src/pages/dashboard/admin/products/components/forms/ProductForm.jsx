@@ -1,6 +1,6 @@
 import React from 'react'
 import ButtonGroup from "@mui/material/ButtonGroup";
-import { TextField, Button, MenuItem, Grid } from "@mui/material";
+import { TextField, Button, MenuItem, Grid, InputAdornment, Switch, FormControlLabel, FormHelperText } from "@mui/material";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -9,12 +9,14 @@ import FormSkeleton from '@components/Skeleton/FormSkeleton';
 
 import { ProductPostRequest, ProductPutRequest } from '@controllers/ProductController';
 import { GetConversions } from '@controllers/ConversionController';
+import { GetProductTypes } from "@controllers/ProductTypeController";
 
 function ProductForm({ setOpen, selectedForUpdate = null }) {
     const queryClient = useQueryClient();
     const { data: conversions, isLoading } = useQuery(["conversions"], GetConversions);
-    console.log(conversions);
+    const { data: productTypes, isLoading: ptLoading } = useQuery(["productType"], GetProductTypes);
 
+    console.log(productTypes);
     const { mutate: createProduct } = useMutation(ProductPostRequest, {
         onSuccess: (d) => {
             queryClient.invalidateQueries();
@@ -54,24 +56,25 @@ function ProductForm({ setOpen, selectedForUpdate = null }) {
     } = useFormik({
         initialValues: {
             id: selectedForUpdate ? selectedForUpdate.productID : null,
-            name: selectedForUpdate ? selectedForUpdate.name : " ",
-            desc: selectedForUpdate ? selectedForUpdate.desc : " ",
-            brand: selectedForUpdate ? selectedForUpdate.brand : " ",
-            conversionSize: selectedForUpdate ? selectedForUpdate.conversionSize : 0,
-            conversionID: selectedForUpdate ? selectedForUpdate.conversion.conversionID : 0,
-            price: selectedForUpdate ? selectedForUpdate.price : 0,
-            inStock: selectedForUpdate ? selectedForUpdate.inStock : false,
-            image: selectedForUpdate ? selectedForUpdate.imageUrl : null,
+            Name: selectedForUpdate ? selectedForUpdate.name : "",
+            Description: selectedForUpdate ? selectedForUpdate.desc : "",
+            Brand: selectedForUpdate ? selectedForUpdate.brand : "",
+            PDTypeID: selectedForUpdate ? selectedForUpdate.productType.pdTypeID : 0,
+            ConversionSize: selectedForUpdate ? selectedForUpdate.conversionSize : 0,
+            ConversionID: selectedForUpdate ? selectedForUpdate.conversion.conversionID : 0,
+            Price: selectedForUpdate ? selectedForUpdate.price : 0,
+            InStock: selectedForUpdate ? selectedForUpdate.inStock : false,
+            Image: selectedForUpdate ? selectedForUpdate.imageUrl : null,
         },
         validationSchema: Yup.object({
-            name: Yup.string().required("Required"),
-            desc: Yup.string().required("Required"),
-            brand: Yup.string().required("Required"),
-            conversionID: Yup.number().min(1).required("Required"),
-            conversionSize: Yup.number().required("Required"),
-            price: Yup.number().required("Required"),
-            inStock: Yup.boolean().required("Required"),
-            image: Yup.mixed().required("Required")
+            Name: Yup.string().required("Required"),
+            Description: Yup.string().required("Required"),
+            Brand: Yup.string().required("Required"),
+            PDTypeID: Yup.number().min(1).required("Required"),
+            ConversionID: Yup.number().min(1).required("Required"),
+            ConversionSize: Yup.number().required("Required"),
+            Price: Yup.number().required("Required"),
+            InStock: Yup.bool().oneOf([true, false], "Required"),
         }),
         onSubmit: (values) => {
             if (selectedForUpdate) {
@@ -84,26 +87,22 @@ function ProductForm({ setOpen, selectedForUpdate = null }) {
         },
     });
 
-    React.useEffect(() => {
-        setFieldTouched("name");
-    }, [selectedForUpdate]);
-
     return (
-        !isLoading ? (
+        !isLoading && !ptLoading ? (
             <Grid container rowGap={2}>
                 <Grid item xs={12}>
                     <TextField
                         autoFocus
                         margin="dense"
-                        id="name"
-                        name="name"
+                        id="Name"
+                        name="Name"
                         label="Product Name"
                         type="name"
                         fullWidth
                         size="small"
-                        error={!!errors.name}
-                        helperText={errors.name}
-                        value={values.name}
+                        error={!!errors.Name}
+                        helperText={errors.Name}
+                        value={values.Name}
                         onChange={handleChange}
                     />
                 </Grid>
@@ -111,15 +110,15 @@ function ProductForm({ setOpen, selectedForUpdate = null }) {
                 <Grid item xs={12}>
                     <TextField
                         margin="dense"
-                        id="desc"
-                        name="desc"
+                        id="Description"
+                        name="Description"
                         label="Product Description"
                         type="text"
                         fullWidth
                         size="small"
-                        error={!!errors.desc}
-                        helperText={errors.desc}
-                        value={values.desc}
+                        error={!!errors.Description}
+                        helperText={errors.Description}
+                        value={values.Description}
                         onChange={handleChange}
                     />
                 </Grid>
@@ -127,41 +126,112 @@ function ProductForm({ setOpen, selectedForUpdate = null }) {
                 <Grid item xs={12}>
                     <TextField
                         margin="dense"
-                        id="brand"
-                        name="brand"
+                        id="Brand"
+                        name="Brand"
                         label="Product brand"
                         type="text"
                         fullWidth
                         size="small"
-                        error={!!errors.brand}
-                        helperText={errors.brand}
-                        value={values.brand}
+                        error={!!errors.Brand}
+                        helperText={errors.Brand}
+                        value={values.Brand}
                         onChange={handleChange}
                     />
                 </Grid>
 
                 <Grid item xs={12}>
                     <TextField
-                        id="conversionID"
-                        name="conversionID"
-                        label="Conversion Unit"
+                        id="PDTypeID"
+                        name="PDTypeID"
+                        label="Product Category"
                         select
                         fullWidth
                         size="small"
-                        error={!!errors.conversionID}
-                        helperText={errors.conversionID}
-                        value={values.conversionID}
+                        error={!!errors.PDTypeID}
+                        helperText={errors.PDTypeID}
+                        value={values.PDTypeID}
                         onChange={handleChange}
                     >
                         <MenuItem value={0}>
                             <em>Select Option</em>
                         </MenuItem>
-                        {conversions.map((conversion) => (<MenuItem value={conversion.conversionID}>{conversion.unit}
+                        {productTypes.map((productType) => (<MenuItem key={productType.pdTypeID} value={productType.pdTypeID}>{productType.category}
                         </MenuItem>))}
                     </TextField>
                 </Grid>
 
+                <Grid item xs={12}>
+                    <TextField
+                        id="ConversionID"
+                        name="ConversionID"
+                        label="Conversion Unit"
+                        select
+                        fullWidth
+                        size="small"
+                        error={!!errors.ConversionID}
+                        helperText={errors.ConversionID}
+                        value={values.ConversionID}
+                        onChange={handleChange}
+                    >
+                        <MenuItem value={0}>
+                            <em>Select Option</em>
+                        </MenuItem>
+                        {conversions.map((conversion) => (<MenuItem key={conversion.conversionID} value={conversion.conversionID}>{conversion.unit}
+                        </MenuItem>))}
+                    </TextField>
+                </Grid>
+                {values.ConversionID != 0 ? (
+                    <Grid item xs={12}>
+                        <TextField
+                            id="ConversionSize"
+                            name="ConversionSize"
+                            label="Conversion size"
+                            type="number"
+                            fullWidth
+                            size="small"
+                            error={!!errors.ConversionSize}
+                            helperText={errors.ConversionSize}
+                            value={values.ConversionSize}
+                            onChange={handleChange}
+                            InputProps={{
+                                endAdornment: <InputAdornment position="end">{conversions && conversions.find((conversion) => conversion.conversionID === values.ConversionID).unit}</InputAdornment>
+                            }}
+                        />
+                    </Grid>) : null}
 
+                <Grid item xs={12}>
+                    <FormControlLabel
+                        control={
+                            <Switch required color="primary" value={values.InStock} checked={values.InStock} onChange={handleChange} id="InStock" />
+                        }
+                        label="In Stock"
+                    />
+                    <FormHelperText>{errors.InStock}</FormHelperText>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <TextField
+                        margin="dense"
+                        id="Price"
+                        name="Price"
+                        label="Price"
+                        type="number"
+                        fullWidth
+                        size="small"
+                        error={!!errors.Price}
+                        helperText={errors.Price}
+                        value={values.Price}
+                        onChange={handleChange}
+                    />
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Button variant="contained" component="label">
+                        Upload Image
+                        <input hidden id="Image" onChange={handleChange} type="file" accept="image/*" />
+                    </Button>
+                    {values.Image != null ? " Image Uploaded" : " No image found"}
+                </Grid>
 
                 <Grid item xs={12}>
                     <ButtonGroup

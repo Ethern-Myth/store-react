@@ -1,4 +1,5 @@
 import axios from "axios";
+import FormData from "form-data";
 
 export async function GetProducts() {
 	const res = await axios.get("/api/Product");
@@ -15,12 +16,16 @@ export async function GetProduct({ queryKey }) {
 
 export async function ProductPostRequest(myForm) {
 	try {
-		console.log(myForm);
-		// const res = await axios.post('/api/Product', myForm, {
-		// 	headers: { "Content-Type": "multipart/form-data" },
-		// });
-		// const data= res.data;
-		// return data;
+		let formData = new FormData();
+		Object.entries(myForm).forEach(([key, value]) => {
+			formData.append(key, value);
+		});
+		console.log(...formData);
+		const res = await axios.post('/api/Product', formData, {
+			headers: { "Content-Type": `multipart/form-data; boundary=${formData._boundary}` },
+		});
+		const data = res.data;
+		return data;
 	} catch (error) {
 		console.error(error.response.data);
 	}
@@ -28,12 +33,12 @@ export async function ProductPostRequest(myForm) {
 
 export async function ProductPutRequest(myForm) {
 	try {
-		console.log(myForm);
-		// const res = await axios.post('/api/Product', myForm, {
-		// 	headers: { "Content-Type": "multipart/form-data" },
-		// });
-		// const data= res.data;
-		// return data;
+		const id = myForm.id;
+		const res = await axios.put(`/api/Product/${id}`, myForm, {
+			headers: { "Content-Type": "multipart/form-data" },
+		});
+		const data = res.data;
+		return data;
 	} catch (error) {
 		console.error(error.response.data);
 	}

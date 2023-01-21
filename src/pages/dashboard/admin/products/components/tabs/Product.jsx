@@ -23,7 +23,6 @@ function Product() {
     const [open, setOpen] = React.useState(false);
     const [selectedForUpdate, setSelectedForUpdate] = React.useState(null);
     const { data: products, isLoading } = useQuery(["product"], GetProducts);
-    console.log(products);
 
     function handleSelect(id) {
         setSelectedForUpdate(products.find((pt) => pt.productID === id));
