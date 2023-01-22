@@ -12,9 +12,9 @@ import Chip from "@mui/material/Chip";
 import { toast } from "react-toastify";
 import ProductForm from "@pages/dashboard/admin/products/components/forms/ProductForm";
 
-const PageContainer = React.lazy(() => import("@components/Templates/PageContainer"));
 const CustomToolBar = React.lazy(() => import("@components/Toolbar/CustomToolBar"));
 const FormModal = React.lazy(() => import("@components/FormModal/FormModal"));
+const PageContainer = React.lazy(() => import("@components/Templates/PageContainer"));
 
 import { GetProducts, ProductDeleteRequest, UpdateProductStatusRequest } from "@controllers/ProductController";
 
@@ -28,6 +28,20 @@ function Product() {
         setSelectedForUpdate(products.find((pt) => pt.productID === id));
         setOpen(true);
     }
+    const { mutate: updateByStatusProduct } = useMutation(UpdateProductStatusRequest, {
+        onSuccess: (d) => {
+            queryClient.invalidateQueries();
+            toast("Product Status Updated", {
+                type: "success",
+            });
+            setOpen(false);
+        },
+        onError: (d) => {
+            toast("Product Status Update Failed", {
+                type: "error",
+            });
+        },
+    });
 
     const { mutate: deleteProduct } = useMutation(ProductDeleteRequest, {
         onSuccess: (d) => {
@@ -44,20 +58,6 @@ function Product() {
         },
     });
 
-    const { mutate: updateByStatusProduct } = useMutation(UpdateProductStatusRequest, {
-        onSuccess: (d) => {
-            queryClient.invalidateQueries();
-            toast("Product Status Updated", {
-                type: "success",
-            });
-            setOpen(false);
-        },
-        onError: (d) => {
-            toast("Product Status Update Failed", {
-                type: "error",
-            });
-        },
-    });
 
     const columns = [
         {

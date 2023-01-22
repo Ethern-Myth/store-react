@@ -28,7 +28,7 @@ import { toast } from "react-toastify";
 const Footer = React.lazy(() => import("@components/Footer/Footer"));
 
 import { RegisterRequest } from "@controllers/RegisterController";
-import { RolesResponse } from "@controllers/RoleController";
+import { GetRoles } from "@controllers/RoleController";
 
 const theme = createTheme();
 
@@ -47,7 +47,7 @@ function RegisterTemplate() {
     const debouncedValue = useDebounce(phone, 300);
     const tokenDebouncedValue = useDebounce(securityToken, 300);
 
-    const { data: roles, isLoading } = useQuery(["roles"], RolesResponse);
+    const { data: roles, isLoading } = useQuery(["roles"], GetRoles);
 
     function notify(value) {
         messageApi.open({

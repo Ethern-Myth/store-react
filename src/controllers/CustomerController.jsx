@@ -27,7 +27,8 @@ export async function CustomerPostRequest(myForm) {
 
 export async function CustomerPutRequest(myForm) {
     try {
-        const res = await axios.put(`/api/Customer`, myForm,
+        const id = myForm.id;
+        const res = await axios.put(`/api/Customer/${id}`, myForm,
             {
                 headers: { "Content-Type": "application/json" }
             });

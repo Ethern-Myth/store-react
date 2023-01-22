@@ -44,8 +44,6 @@ function ProductType() {
         },
     });
 
-    if (isLoading) return <Empty />;
-
     const columns = [
         {
             field: "category",
@@ -101,6 +99,8 @@ function ProductType() {
             },
         },
     ]
+
+    if (isLoading) return <Empty />;
 
     return (
         <PageContainer>
