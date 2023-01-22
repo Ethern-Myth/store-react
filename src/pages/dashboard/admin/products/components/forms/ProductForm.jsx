@@ -13,10 +13,15 @@ import { GetProductTypes } from "@controllers/ProductTypeController";
 
 function ProductForm({ setOpen, selectedForUpdate = null }) {
     const queryClient = useQueryClient();
+    const [image, setImage] = React.useState(null);
     const { data: conversions, isLoading } = useQuery(["conversions"], GetConversions);
     const { data: productTypes, isLoading: ptLoading } = useQuery(["productType"], GetProductTypes);
 
-    console.log(productTypes);
+    const handleImageChange = (e) => {
+        setImage(e.target.files[0]);
+        console.log(e.target.files[0]);
+    };
+
     const { mutate: createProduct } = useMutation(ProductPostRequest, {
         onSuccess: (d) => {
             queryClient.invalidateQueries();
@@ -64,7 +69,7 @@ function ProductForm({ setOpen, selectedForUpdate = null }) {
             ConversionID: selectedForUpdate ? selectedForUpdate.conversion.conversionID : 0,
             Price: selectedForUpdate ? selectedForUpdate.price : 0,
             InStock: selectedForUpdate ? selectedForUpdate.inStock : false,
-            Image: selectedForUpdate ? selectedForUpdate.imageUrl : null,
+            Image: selectedForUpdate ? selectedForUpdate.image : null,
         },
         validationSchema: Yup.object({
             Name: Yup.string().required("Required"),
@@ -86,6 +91,10 @@ function ProductForm({ setOpen, selectedForUpdate = null }) {
             }
         },
     });
+
+    React.useEffect(() => {
+        values.Image = image;
+    }, [image]);
 
     return (
         !isLoading && !ptLoading ? (
@@ -228,9 +237,9 @@ function ProductForm({ setOpen, selectedForUpdate = null }) {
                 <Grid item xs={12}>
                     <Button variant="contained" component="label">
                         Upload Image
-                        <input hidden id="Image" onChange={handleChange} type="file" accept="image/*" />
+                        <input hidden id="Image" name="Image" onChange={handleImageChange} type="file" accept="image/*" />
                     </Button>
-                    {values.Image != null ? " Image Uploaded" : " No image found"}
+                    {image != null ? " Image Uploaded" : " No image found"}
                 </Grid>
 
                 <Grid item xs={12}>

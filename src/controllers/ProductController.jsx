@@ -20,27 +20,30 @@ export async function ProductPostRequest(myForm) {
 		Object.entries(myForm).forEach(([key, value]) => {
 			formData.append(key, value);
 		});
-		console.log(...formData);
 		const res = await axios.post('/api/Product', formData, {
-			headers: { "Content-Type": `multipart/form-data; boundary=${formData._boundary}` },
+			transformRequest: () => formData,
 		});
 		const data = res.data;
 		return data;
 	} catch (error) {
-		console.error(error.response.data);
+		console.error(error);
 	}
 }
 
 export async function ProductPutRequest(myForm) {
 	try {
+		let formData = new FormData();
+		Object.entries(myForm).forEach(([key, value]) => {
+			formData.append(key, value);
+		});
 		const id = myForm.id;
-		const res = await axios.put(`/api/Product/${id}`, myForm, {
-			headers: { "Content-Type": "multipart/form-data" },
+		const res = await axios.put(`/api/Product/${id}`, formData, {
+			transformRequest: () => formData,
 		});
 		const data = res.data;
 		return data;
 	} catch (error) {
-		console.error(error.response.data);
+		console.error(error);
 	}
 }
 
@@ -56,7 +59,6 @@ export async function UpdateProductStatusRequest(myForm) {
 }
 
 export async function ProductDeleteRequest(id) {
-	console.log(id);
 	const res = await axios.delete(`/api/Product/${id}`);
 	const data = res.data;
 	return data;

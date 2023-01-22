@@ -3,12 +3,7 @@
 Responsive Web App made to fit your needs **98% Error-Free Tested**. **Mobile App coming soon**
 
 Quick Notes: 
-    **Windows Users**
-    - Add the following lines to **vite.config.js** at the start of the file if not added already. Since this was developed on Linux, might not be compatible with runtime compilation.
-
-    ```
-        import fs from "fs/promises";
-    ```
+    Changes have been made to the **vite.config.js** ,no need to change code unless necessary.
 
 ## BEGIN HERE:
 ### SCREENSHOTS
