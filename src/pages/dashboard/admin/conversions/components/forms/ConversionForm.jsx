@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import ButtonGroup from "@mui/material/ButtonGroup";
 import { TextField, Button, Grid } from "@mui/material";
 import { useMutation, useQueryClient } from "react-query";
@@ -6,36 +6,38 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 
-import { ProductTypePostRequest, ProductTypePutRequest } from '@controllers/ProductTypeController';
+import { ConversionPostRequest, ConversionPutRequest } from "@controllers/ConversionController";
 
-function ProductTypeForm({ setOpen, selectedForUpdate = null }) {
+function ConversionForm({ setOpen, selectedForUpdate = null }) {
     const queryClient = useQueryClient();
 
-    const { mutate: createProductType } = useMutation(ProductTypePostRequest, {
+    console.log(selectedForUpdate);
+
+    const { mutate: createConversion } = useMutation(ConversionPostRequest, {
         onSuccess: (d) => {
             queryClient.invalidateQueries();
-            toast("Product Type Created", {
+            toast("Conversion Created", {
                 type: "success",
             });
             setOpen(false);
         },
         onError: (d) => {
-            toast("Product Type Create Failed", {
+            toast("Conversion Create Failed", {
                 type: "error",
             });
         },
     });
 
-    const { mutate: editProductType } = useMutation(ProductTypePutRequest, {
+    const { mutate: editConversion } = useMutation(ConversionPutRequest, {
         onSuccess: (d) => {
             queryClient.invalidateQueries();
-            toast("Product Type Updated", {
+            toast("Conversion Updated", {
                 type: "success",
             });
             setOpen(false);
         },
         onError: (d) => {
-            toast("Product Type Updating Failed", {
+            toast("Conversion Updating Failed", {
                 type: "error",
             });
         },
@@ -49,25 +51,25 @@ function ProductTypeForm({ setOpen, selectedForUpdate = null }) {
         setFieldTouched,
     } = useFormik({
         initialValues: {
-            id: selectedForUpdate ? selectedForUpdate.pdTypeID : null,
-            category: selectedForUpdate ? selectedForUpdate.category : "",
+            id: selectedForUpdate ? selectedForUpdate.conversionID : null,
+            unit: selectedForUpdate ? selectedForUpdate.unit : "",
         },
         validationSchema: Yup.object({
-            category: Yup.string().required("Required"),
+            unit: Yup.string().required("Required"),
         }),
         onSubmit: (values) => {
             if (selectedForUpdate) {
-                editProductType(values);
+                editConversion(values);
             }
             else {
                 delete values.id;
-                createProductType(values);
+                createConversion(values);
             }
         },
     });
 
     React.useEffect(() => {
-        setFieldTouched("category");
+        setFieldTouched("unit");
     }, [selectedForUpdate]);
 
     return (
@@ -76,15 +78,15 @@ function ProductTypeForm({ setOpen, selectedForUpdate = null }) {
                 <TextField
                     autoFocus
                     margin="dense"
-                    id="category"
-                    name="category"
-                    label="Product Type Category"
+                    id="unit"
+                    name="unit"
+                    label="Conversion Unit"
                     type="text"
                     fullWidth
                     size="small"
-                    error={!!errors.category}
-                    helperText={errors.category}
-                    value={values.category}
+                    error={!!errors.unit}
+                    helperText={errors.unit}
+                    value={values.unit}
                     onChange={handleChange}
                 />
             </Grid>
@@ -118,4 +120,4 @@ function ProductTypeForm({ setOpen, selectedForUpdate = null }) {
     )
 }
 
-export default React.memo(ProductTypeForm); 
+export default React.memo(ConversionForm);
